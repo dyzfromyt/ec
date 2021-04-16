@@ -127,8 +127,8 @@ fn rewrite_frontiers(
             Box::new(Expression::Index(mapping[&j])),
         )
     }
-    for mut fs in frontiers {
-        for mut f in &mut fs.1 {
+    for fs in frontiers {
+        for f in &mut fs.1 {
             let e = rewrite_mapping.get_mut(&f.0).unwrap();
             rewrite(&nonclosed_invention, &applied_invention, e);
             // e.etalong(dsl);
