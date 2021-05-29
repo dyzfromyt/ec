@@ -14,7 +14,7 @@
     5. [PyPy](#pypy)
 4. [Software Architecture](#software-architecture)
 5. [`protonet-networks`](#protonet-networks)
-    
+
 # Overview
 
 DreamCoder is a wake-sleep algorithm that finds programs to solve a given set of tasks in a particular domain.
@@ -186,6 +186,22 @@ brew install imagemagick
 
 ### Building the OCaml binaries
 
+Do not use ocaml-dune. The current build system is jbuilder. jbuilder is available after opam setup.
+
+```bash
+sudo apt-get install ocaml opam
+
+# One time setup opam: opam init
+
+opam update
+opam switch create 4.06.1+flambda   # create a ocaml switch that is using a particular ocaml version
+eval $(opam env)                    # activate ocaml switch
+
+sudo apt-get install libczmq-dev    # required header file for opam install zmq
+opam install ppx_jane core re2 yojson vg cairo2 camlimages menhir ocaml-protoc zmq
+
+```
+
 If you introduce new primitives for new domains of tasks, or modify the OCaml codebase (in `solvers/`) for any reason, you will need to rebuild the OCaml binaries before rerunning the Python scripts.
 
 To rebuild the OCaml binaires, run the following from the root of the repo:
@@ -198,7 +214,7 @@ If you are not running within the singularity container, you will need to instal
 ```bash
 opam update                 # Seriously, do that one
 opam switch 4.06.1+flambda  # caml.inria.fr/pub/docs/manual-ocaml/flambda.html
-eval `opam config env`      # *sight*
+eval $(opam env)            # activate the ocaml switch above
 opam install ppx_jane core re2 yojson vg cairo2 camlimages menhir ocaml-protoc zmq
 ```
 
